@@ -28,3 +28,10 @@ docker run --rm --interactive --tty -v ${PWD}:/app -u $(id -u):$(id -g) -w /app 
 ```
 
 :warning: L'image composer utilise la dernière version de php (2018/10/05 7.2.10) donc, si vos dépendances vous restreint à utiliser d'autres versions de php considerez l'utilisation de `prooph/composer:7.0` ou  `prooph/composer:7.1`. Sinon, cherchez, il y a toujours dans `dockerhub` quelqu'un qui à créé l'image dont vous avez besoin.
+
+On peut aussi faire :
+```
+docker run --rm --interactive --tty -v ${PWD}:/app \
+-u $(id -u):$(id -g) -w /app \
+--entrypoint /usr/local/bin/php  prooph/composer:7.1 bin/console make:migration
+```
