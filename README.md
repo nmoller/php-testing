@@ -14,6 +14,12 @@ docker run --rm --interactive --tty -v ${PWD}:/app -u $(id -u):$(id -g) composer
 ```
 docker run --rm --interactive --tty -v ${PWD}:/app -u $(id -u):$(id -g) -w /app moodlehq/moodle-php-apache:7.1 vendor/bin/phpunit
 ```
+Si vous utilisez composer en locale, ou vous voulez profiter de la cache:
+```
+ docker run --rm --interactive --tty -v ${PWD}:/app \
+ -v /home/nmoller/.composer:/root/composer \
+ -w /app  prooph/composer:7.1 require php-http/guzzle6-adapter
+```
 
 Rouler les tests unitaires:
 
