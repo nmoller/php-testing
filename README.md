@@ -40,7 +40,7 @@ docker run --rm --interactive --tty -v ${PWD}:/app \
 ```
 docker run --rm --interactive --tty -v ${PWD}:/app \
 -u $(id -u):$(id -g) \
--e COMPOSER_HOME=/app/composer 
+-e COMPOSER_HOME=/app/composer \
 -w /app prooph/composer:7.1 update --no-dev
 ```
 
