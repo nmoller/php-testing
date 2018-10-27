@@ -53,13 +53,44 @@ Supposons que l'on veut utiliser `bruli/php-git-hooks`.
 Comme on veut utiliser des containers ... on a à modifier les fichiers 
 ` .git\hooks`.
 
+:red_circle: Le contrôle le plus simple `php -l` ou `phplint` posse des problèmes; le pre-commmit devient un peu plus compliqué pour en tenir compte.
+
 On copie le contenu original de `pre-commit` dans `pre-commit.php` et le contenu de `pre-commit` devient:
 ```
 #!/usr/bin/env bash
 
-docker run --rm --interactive -v ${PWD}:/app -u $(id -u):$(id -g) \
--e COMPOSER_HOME=/app/composer -w /app  --entrypoint=php prooph/composer:7.1 .git/hooks/pre-commit.php
+# Comme phplint de git-hooks ne fonctionne pas dans la version containers
+# c'est fait à la main car c'est le check le plus simple à avoir à la main.
+
+
+# Voir si c'est le premier commit ou pas
+if git rev-parse --verify HEAD >/dev/null 2>&1
+then
+    against=HEAD
+else
+    # Initial commit: diff against an empty tree object
+    against=4b825dc642cb6eb9a060e54bf8d69288fbee4904
+fi
+
+# Une seule place à modifier si autre version php 
+CMD="docker run --rm  -v ${PWD}:/app -u $(id -u):$(id -g) -e COMPOSER_HOME=/app/composer -w /app --entrypoint=php prooph/composer:7.1"
+
+
+# Identifier les fichiers qui ont changé
+FILES=$(git diff  --cached --name-only $againt --)
+
+for f in ${FILES}
+do
+    lint=$( ${CMD} -l $f)
+    if [[ ! $lint =~ "No syntax errors" ]]; then
+        echo $lint
+        exit 1
+    fi
+done
+
+${CMD} .git/hooks/pre-commit.php
 ```
+
 :tada: On n'a plus d'excuse pour dire qu'on n'a pas la bonne version de php.
 
 Si vous faites un commit avec la version originelle dans un ordi avec `PHP 5.6`
