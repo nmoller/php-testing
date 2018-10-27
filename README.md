@@ -35,3 +35,12 @@ docker run --rm --interactive --tty -v ${PWD}:/app \
 -u $(id -u):$(id -g) -w /app \
 --entrypoint /usr/local/bin/php  prooph/composer:7.1 bin/console make:migration
 ```
+
+:v: Il est conseillé d'utiliser la variable `COMPOSER_HOME` pour avoir une bonne gestion des caches composer... il ne fait pas mal de le mettre dans `.gitignore`
+```
+docker run --rm --interactive --tty -v ${PWD}:/app \
+-u $(id -u):$(id -g) \
+-e COMPOSER_HOME=/app/composer 
+-w /app prooph/composer:7.1 update --no-dev
+```
+
