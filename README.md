@@ -45,7 +45,6 @@ docker run --rm --interactive --tty -v ${PWD}:/app \
 ```
 
 # On se rend plus loin
-
 Supposons que l'on veut utiliser `bruli/php-git-hooks`.
 
 [bruli/php-git-hooks](https://packagist.org/packages/bruli/php-git-hooks)
@@ -77,6 +76,14 @@ Supposons que l'on veut utiliser `bruli/php-git-hooks`.
 Comme on veut utiliser des containers ... on a à modifier les fichiers 
 ` .git\hooks`.
 
+Si vous faites un commit avec la version originelle dans un ordi avec `PHP 5.6`
+... on peut recevoir des messages du genre:
+```
+PHP Parse error:  syntax error, unexpected 'function' (T_FUNCTION), 
+expecting identifier (T_STRING) or \\ (T_NS_SEPARATOR) in ...
+```
+
+### Modifier le hook pour utiliser container
 :red_circle: Le contrôle le plus simple `php -l` ou `phplint` posse des problèmes; le pre-commmit devient un peu plus compliqué pour en tenir compte.
 
 On copie le contenu original de `pre-commit` dans `pre-commit.php` et le contenu de `pre-commit` devient:
@@ -116,13 +123,6 @@ ${CMD} .git/hooks/pre-commit.php
 ```
 
 :tada: On n'a plus d'excuse pour dire qu'on n'a pas la bonne version de php.
-
-Si vous faites un commit avec la version originelle dans un ordi avec `PHP 5.6`
-... on peut recevoir des messages du genre:
-```
-PHP Parse error:  syntax error, unexpected 'function' (T_FUNCTION), 
-expecting identifier (T_STRING) or \\ (T_NS_SEPARATOR) in ...
-```
 
 Pour corriger un problème:
 ```
