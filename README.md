@@ -107,6 +107,49 @@ docker run --rm --interactive --tty -v ${PWD}:/app \
  -w /app --entrypoint=php prooph/composer:7.1 \
  bin/phpcbf src/Base/Command.php --standard=PSR2
 
+ PHPCBF RESULT SUMMARY
+ ----------------------------------------------------------------------
+ FILE                                                  FIXED  REMAINING
+ ----------------------------------------------------------------------
+ /app/src/Base/Command.php                             3      0
+ ----------------------------------------------------------------------
+ A TOTAL OF 3 ERRORS WERE FIXED IN 1 FILE
+ ----------------------------------------------------------------------
+
+ Time: 37ms; Memory: 6Mb
+
  git add src/Base/Command.php
  git commit -m "Fichier réparé"
+ ```
+Ajouter le fichier `PmdRules.xml` à la racine et:
+
+ ```
+  git commit -m "Test.."
+ Pre-Commit tool
+ Running PHPLINT...................................0K
+ Checking code style with PHPCS....................0K
+ Checking PSR2 code style with PHP-CS-FIXER........0K
+ Checking code mess with PHPMD.....................0K
+
+                  @@@@@@@@@@@@@@@
+      @@@@      @@@@@@@@@@@@@@@@@@@
+     @    @   @@@@@@@@@@@@@@@@@@@@@@@
+     @    @  @@@@@@@@   @@@   @@@@@@@@@
+     @   @  @@@@@@@@@   @@@   @@@@@@@@@@
+     @  @   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    @@@@@@@@@ @@@@@@@@@@@@@@@@@@@@@@@@@@@@
+   @         @ @@  @@@@@@@@@@@@@  @@@@@@@@
+  @@         @ @@@  @@@@@@@@@@@  @@@@@@@@@
+ @@   @@@@@@@@ @@@@  @@@@@@@@@  @@@@@@@@@@
+ @            @ @@@@           @@@@@@@@@@
+ @@           @ @@@@@@@@@@@@@@@@@@@@@@@@
+  @   @@@@@@@@@ @@@@@@@@@@@@@@@@@@@@@@@
+  @@         @ @@@@@@@@@@@@@@@@@@@@@@
+   @@@@@@@@@@   @@@@@@@@@@@@@@@@@@@
+                  @@@@@@@@@@@@@@@
+         
+
+                HEY, GOOD JOB!!       
+ [master cad3ed3] Test..
+  1 file changed, 2 insertions(+), 3 deletions(-)
  ```
