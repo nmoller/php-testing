@@ -50,6 +50,30 @@ Supposons que l'on veut utiliser `bruli/php-git-hooks`.
 
 [bruli/php-git-hooks](https://packagist.org/packages/bruli/php-git-hooks)
 
+`composer.json`:
+```
+{
+    "autoload": {
+        "psr-4": {
+            "Nmoller\\": "src/"
+        }
+    },
+    "require-dev": {
+        "bruli/php-git-hooks": "^5.7"
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "PhpGitHooks\\Infrastructure\\Composer\\ConfiguratorScript::buildConfig"
+        ],
+        "post-update-cmd": [
+            "PhpGitHooks\\Infrastructure\\Composer\\ConfiguratorScript::buildConfig"
+        ]
+    }
+}
+```
 Comme on veut utiliser des containers ... on a à modifier les fichiers 
 ` .git\hooks`.
 
