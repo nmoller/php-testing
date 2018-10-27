@@ -99,3 +99,14 @@ Si vous faites un commit avec la version originelle dans un ordi avec `PHP 5.6`
 PHP Parse error:  syntax error, unexpected 'function' (T_FUNCTION), 
 expecting identifier (T_STRING) or \\ (T_NS_SEPARATOR) in ...
 ```
+
+Pour corriger un problème:
+```
+docker run --rm --interactive --tty -v ${PWD}:/app \
+-u $(id -u):$(id -g) -e COMPOSER_HOME=/app/composer \
+ -w /app --entrypoint=php prooph/composer:7.1 \
+ bin/phpcbf src/Base/Command.php --standard=PSR2
+
+ git add src/Base/Command.php
+ git commit -m "Fichier réparé"
+ ```
